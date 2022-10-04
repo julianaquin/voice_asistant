@@ -33,7 +33,7 @@ def transformar_audio_en_texto():
             # prueba que pudo ingresar
             print("dijiste: " + pedido)
 
-            #devolver pedido
+            # devolver pedido
             return pedido
         # en caso de que no comprenda el audioop
         except sr.UnknownValueError:
@@ -62,3 +62,65 @@ def transformar_audio_en_texto():
             # devolver error
             return "sigo esperando"
 
+
+# funcion para que el asistente pueda ser escuchado
+def hablar(mensaje):
+
+    # encender el motor de pyttsx3
+    engine = pyttsx3.init()
+    engine.setProperty('voice', id2)
+
+    # pronunciar mensaje
+    engine.say(mensaje)
+    engine.runAndWait()
+
+
+# informar el dia de la semana
+def pedir_dia():
+
+    # crear variable con datos de hoy
+    dia = datetime.date.today()
+    print(dia)
+
+    # crar una variable para el dia de semana
+    dia_semana = dia.weekday()
+    print(dia_semana)
+
+    # diccionario con nombre de los dias
+    calendario = {0: 'Lunes',
+                  1: 'Martes',
+                  2: 'Miércoles',
+                  3: 'Jueves',
+                  4: 'Viernes',
+                  5: 'Sábado',
+                  6: 'Domingo'}
+
+    # decir el dia de la semana
+    hablar(f'Hoy es {calendario[dia_semana]}')
+
+
+# informar que hora es
+def pedir_hora():
+
+    # crear una variable con datos de la hora
+    hora = datetime.datetime.now()
+    hora2 = f'En este momento son las {hora.hour} con {hora.minute} minutos y {hora.second} segundos '
+    print(hora)
+    hablar(hora2)
+
+
+# funcion saludo inicial
+def saludo_inicial():
+
+    # crear variable con datos de hora
+    hora = datetime.datetime.now()
+    print(hora)
+    if hora.hour > 6 or hora.hour > 23:
+        momento = 'Buenas noches'
+    elif 6 <= hora.hour < 13:
+        momento = 'Buenos dias'
+    else:
+        momento = 'Buenas tardes'
+
+    # saludar
+    hablar(f'{momento} soy Julianito, su asistente personal. porfavor dime en que te puedo ayudar.')
