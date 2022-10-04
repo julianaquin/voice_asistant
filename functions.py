@@ -178,3 +178,27 @@ def pedir_cosas():
             pywhatkit.search(pedido)
             hablar('esto es lo que he encontrado')
             continue
+        elif 'reproducir' in pedido:
+            hablar('Genial, ya pongo la reproducción')
+            pywhatkit.playonyt(pedido)
+            continue
+        elif 'broma' in pedido:
+            hablar(pyjokes.get_joke('es'))
+            continue
+        elif 'precio de las acciones' in pedido:
+            accion = pedido.split('de')[-1].strip()
+            cartera = {'apple': 'APPL',
+                       'amazon': 'AMZN',
+                       'google': 'GOOGL'}
+            try:
+                accion_buscada = cartera[accion]
+                accion_buscada = yf.Ticker(accion_buscada)
+                precio_actual = accion_buscada.info['regularMarketPrice']
+                hablar(f'Encontré, el precio de {accion} es {precio_actual}')
+                continue
+            except:
+                hablar('perdón, pero no la he encontrado')
+                continue
+        elif 'adios' or 'chao' in pedido:
+            hablar('Descansa, cualquier cosa me avisas')
+            break
