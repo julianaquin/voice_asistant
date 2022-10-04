@@ -8,6 +8,14 @@ import datetime
 import wikipedia
 
 
+# agregar opciones de voces de asistente
+id1 = 'com.apple.speech.synthesis.voice.monica'
+id2 = 'com.apple.speech.synthesis.voice.paulina'
+id3 = 'com.apple.speech.synthesis.voice.diego'
+id4 = 'com.apple.speech.synthesis.voice.jorge'
+id5 = 'com.apple.speech.synthesis.voice.Victoria'
+
+
 # escuchar nuestro microfono y devolver el audio como texto
 def transformar_audio_en_texto():
 
@@ -124,3 +132,35 @@ def saludo_inicial():
 
     # saludar
     hablar(f'{momento} soy Julianito, su asistente personal. porfavor dime en que te puedo ayudar.')
+
+
+# funcion cnetral del asistente
+def pedir_cosas():
+
+    # activar el saludo inicial
+    saludo_inicial()
+
+    # variable de corte
+    comenzar = True
+
+    # loop central
+    while comenzar:
+        # activar el micro y guardar el pedido en un string
+        pedido = transformar_audio_en_texto().lower()
+
+        # respuestas a solicitudes que yo haga
+        if 'abrir youtube' in pedido:
+            hablar('con gusto, estoy abriendo youtube')
+            webbrowser.open('https://www.youtube.com')
+            continue
+        elif 'abrir navegador' in pedido:
+            hablar('claro, estoy en eso')
+            webbrowser.open('https://www.google.com/')
+            continue
+        elif 'qué día es hoy' in pedido:
+            pedir_dia()
+            print('pediste el dia')
+            continue
+        elif 'qué hora es' in pedido:
+            pedir_hora()
+            continue
