@@ -164,3 +164,17 @@ def pedir_cosas():
         elif 'qué hora es' in pedido:
             pedir_hora()
             continue
+        elif 'busca en wikipedia' in pedido:
+            hablar('Buscando en wikipedia')
+            pedido = pedido.replace('busca en wikipedia', '')
+            wikipedia.set_lang('es')
+            resultado = wikipedia.summary(pedido, sentences=1)
+            hablar('Wikipedia dice lo siguiente: ')
+            hablar(resultado)
+            continue
+        elif 'busca en internet' in pedido:
+            hablar('entrando a internet')
+            pedido = pedido.replace('busca en internet', '')
+            pywhatkit.search(pedido)
+            hablar('esto es lo que he encontrado')
+            continue
